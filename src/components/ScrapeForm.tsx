@@ -43,13 +43,10 @@ function ScrapeForm() {
       if (message === "Data retrieved successfully") {
         // Handle success here
 
-        //console.log('Student Personal Data:', data.studentPersonalData);
-        //console.log('Student Courses Data:', data.studentCoursesData);
+        console.log("Student Personal Data:", data.studentPersonalData);
+        console.log("Student Courses Data:", data.studentCoursesData);
         // Storing Data Locally
-        // const storedData = localStorage.setItem(
-        //   "studentCoursesData",
-        //   JSON.stringify(data)
-        // );
+        localStorage.setItem("StudentData", JSON.stringify(data));
         toast({
           title: "Great",
           description: (

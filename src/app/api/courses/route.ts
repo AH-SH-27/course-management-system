@@ -137,9 +137,20 @@ const lunchScraping = async (body: reqBodyType) => {
 
     // Print all the extracted data
 
-    studentData = {
+    const finalCourses = allTableData.map((item) => ({
+      Term: item[0],
+      Course: item[1],
+      Title: item[2],
+      Credits: parseFloat(item[3]),
+      Level: item[4],
+      Grade: item[5],
+      SGPA: parseFloat(item[6]),
+    }));
+
+
+    let studentData = {
       studentPersonalData: data, // Replace 'data' with the personal data
-      studentCoursesData: allTableData, // Replace 'allTableData' with the course data
+      studentCoursesData: finalCourses, // Replace 'allTableData' with the course data
     };
 
     await browser.close();
@@ -149,7 +160,6 @@ const lunchScraping = async (body: reqBodyType) => {
   }
 };
 
-let studentData = {};
 
 type reqBodyType = {
   username: string;
