@@ -221,46 +221,46 @@ const launchScraping = async () => {
         return result;
       }
       const courseOfferingPageData: courseOfferingPageDataType = [
-        // {
-        //   Faculty: "::-p-aria(FACULTY: Engineering)",
-        //   Attribute:
-        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fifth Year - Core Courses)",
-        //   courseType: "major",
-        // },
-        // {
-        //   Faculty: "::-p-aria(FACULTY: Engineering)",
-        //   Attribute:
-        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Core Courses)",
-        //   courseType: "major",
-        // },
-        // {
-        //   Faculty: "::-p-aria(FACULTY: Engineering)",
-        //   Attribute:
-        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Third Year - Core Courses)",
-        //   courseType: "major",
-        // },
-        // {
-        //   Faculty: "::-p-aria(FACULTY: Engineering)",
-        //   Attribute:
-        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Second Year - Core Courses)",
-        //   courseType: "major",
-        // },
+        {
+          Faculty: "::-p-aria(FACULTY: Engineering)",
+          Attribute:
+            "::-p-aria(ATTRIBUTE: Computer Engineering - Fifth Year - Core Courses)",
+          courseType: "Major",
+        },
+        {
+          Faculty: "::-p-aria(FACULTY: Engineering)",
+          Attribute:
+            "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Core Courses)",
+          courseType: "Major",
+        },
+        {
+          Faculty: "::-p-aria(FACULTY: Engineering)",
+          Attribute:
+            "::-p-aria(ATTRIBUTE: Computer Engineering - Third Year - Core Courses)",
+          courseType: "Major",
+        },
+        {
+          Faculty: "::-p-aria(FACULTY: Engineering)",
+          Attribute:
+            "::-p-aria(ATTRIBUTE: Computer Engineering - Second Year - Core Courses)",
+          courseType: "Major",
+        },
         {
           Faculty: "::-p-aria(FACULTY: Engineering)",
           Attribute:
             "::-p-aria(ATTRIBUTE: Computer Engineering - First Year - Core Courses)",
-          courseType: "major",
+          courseType: "Major",
+        },
+        {
+          Faculty: "::-p-aria(FACULTY: Engineering)",
+          Attribute:
+            "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Elective Courses)",
+          courseType: "Technical Elective",
         },
         // {
         //   Faculty: "::-p-aria(FACULTY: Engineering)",
-        //   Attribute:
-        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Elective Courses)",
-        //   courseType: "elective",
-        // },
-        // {
-        //   Faculty: "::-p-aria(FACULTY: Engineering)",
         //   Attribute: "::-p-aria(ATTRIBUTE: General Engineering Core Courses)",
-        //   courseType: "elective",
+        //   courseType: "GNR",
         // },
         // {
         //   Faculty: "::-p-aria(FACULTY: University Core Courses)",

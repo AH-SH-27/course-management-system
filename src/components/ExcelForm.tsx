@@ -66,12 +66,7 @@ function ExcelForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Storing Data Locally
-    // const storedData = localStorage.setItem(
-    //   "studentCoursesData",
-    //   JSON.stringify(data)
-    // );
+  
     toast({
       title: "Great",
       description: (

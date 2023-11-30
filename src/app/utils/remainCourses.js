@@ -1049,4 +1049,49 @@ const allCourses = [
   }
 ]
 
-function remaincourses(courseOffering: string[], takenCourses: string[]) {}
+function remaincourses(availableCourses, takenCourses, allCourses) {
+  const takenCourseCodes = takenCourses.map(course => course.Course);
+
+  const remainingCourses = allCourses
+    .filter(course => !takenCourseCodes.includes(course.Course))
+    .map(course => {
+      const matchingAvailableCourse = availableCourses.find(
+        availableCourse => availableCourse.code === course.Course
+      );
+
+      if (matchingAvailableCourse) {
+        return {
+          campus: matchingAvailableCourse.campus,
+          crn: matchingAvailableCourse.crn,
+          code: matchingAvailableCourse.code,
+          name: matchingAvailableCourse.name,
+          letter: matchingAvailableCourse.letter,
+          credits: matchingAvailableCourse.credits,
+          type: matchingAvailableCourse.type,
+          days: matchingAvailableCourse.days,
+          times: matchingAvailableCourse.times,
+          bldg: matchingAvailableCourse.bldg,
+          class: matchingAvailableCourse.class,
+          dr: matchingAvailableCourse.dr,
+          capacity: matchingAvailableCourse.capacity,
+          otherMajor: matchingAvailableCourse.otherMajor,
+          major: matchingAvailableCourse.major,
+          emptySpace1: matchingAvailableCourse.emptySpace1,
+          emptySpace2: matchingAvailableCourse.emptySpace2,
+          emptySpace3: matchingAvailableCourse.emptySpace3,
+          emptySpace4: matchingAvailableCourse.emptySpace4,
+          courseType: matchingAvailableCourse.courseType,
+        };
+      }
+
+      return null;
+    })
+    .filter(course => course !== null);
+
+  return remainingCourses;
+}
+
+// Example usage
+const remainingCourses = remaincourses(availableCourses, takenCourses, allCourses);
+console.log(remainingCourses);
+
