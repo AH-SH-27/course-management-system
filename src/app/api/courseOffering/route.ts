@@ -221,18 +221,18 @@ const launchScraping = async () => {
         return result;
       }
       const courseOfferingPageData: courseOfferingPageDataType = [
-        {
-          Faculty: "::-p-aria(FACULTY: Engineering)",
-          Attribute:
-            "::-p-aria(ATTRIBUTE: Computer Engineering - Fifth Year - Core Courses)",
-          courseType: "Major",
-        },
-        {
-          Faculty: "::-p-aria(FACULTY: Engineering)",
-          Attribute:
-            "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Core Courses)",
-          courseType: "Major",
-        },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fifth Year - Core Courses)",
+        //   courseType: "Major",
+        // },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Core Courses)",
+        //   courseType: "Major",
+        // },
         {
           Faculty: "::-p-aria(FACULTY: Engineering)",
           Attribute:
@@ -251,23 +251,29 @@ const launchScraping = async () => {
             "::-p-aria(ATTRIBUTE: Computer Engineering - First Year - Core Courses)",
           courseType: "Major",
         },
-        {
-          Faculty: "::-p-aria(FACULTY: Engineering)",
-          Attribute:
-            "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Elective Courses)",
-          courseType: "Technical Elective",
-        },
         // {
         //   Faculty: "::-p-aria(FACULTY: Engineering)",
-        //   Attribute: "::-p-aria(ATTRIBUTE: General Engineering Core Courses)",
-        //   courseType: "GNR",
-        // },
-        // {
-        //   Faculty: "::-p-aria(FACULTY: University Core Courses)",
         //   Attribute:
-        //     "::-p-aria(ATTRIBUTE: University Core Courses)",
-        //   courseType: "elective",
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Elective Courses)",
+        //   courseType: "Technical Elective",
         // },
+        {
+          Faculty: "::-p-aria(FACULTY: Engineering)",
+          Attribute: "::-p-aria(ATTRIBUTE: General Engineering Core Courses)",
+          courseType: "GNR",
+        },
+        {
+          Faculty: "::-p-aria(FACULTY: University Core Courses)",
+          Attribute:
+            "::-p-aria(ATTRIBUTE: University Core Courses)",
+          courseType: "GNR",
+        },
+        {
+          Faculty: "::-p-aria(FACULTY: University Elective Courses)",
+          Attribute:
+            "::-p-aria(ATTRIBUTE: University Elective Courses)",
+          courseType: "General Elective",
+        },
       ];
 
       let f;
