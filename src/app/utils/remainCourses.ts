@@ -1,6 +1,57 @@
-import React from "react";
+type availableCoursesType = {
+    campus: string;
+    crn: string;
+    code: string;
+    name: string;
+    letter: string;
+    credits: string;
+    type: string;
+    days: string;
+    times: string;
+    bldg: string;
+    class: string;
+    dr: string;
+    capacity: string;
+    otherMajor: string;
+    major: string;
+    emptySpace1: string;
+    emptySpace2: string;
+    emptySpace3: string;
+    emptySpace4: string;
+    courseType: string;
+}[]
 
-const availableCourses = [
+type takenCoursesType = {
+  Term: string;
+  Course: string;
+  Title: string;
+  Credits: number;
+  Level: string;
+  Grade: string;
+  SGPA: number;
+}[]
+
+type allCoursesType = {
+  Course: string;
+  Title: string;
+  Credits: number;
+  Level: string;
+  Type: string;
+}[]
+type preReqListType = {
+  Course: string;
+  Prerequisite: string[];
+}[]
+
+type totalCreditsByCategoryType = {
+  CECore: number;
+  TechnicalElective: number;
+  GeneralElective: number;
+  GNR: number;
+  AllTakenCourses: number;
+}
+
+const availableCourses:availableCoursesType = [
   {
     campus: " ",
     crn: "12119",
@@ -529,24 +580,24 @@ const availableCourses = [
     emptySpace4: " ",
     courseType: "Major",
   },
-  {
-    campus: "Debbieh",
-    crn: "10475",
-    code: "COMP453",
-    name: "Transmission and Processing of Digital Signals",
-    letter: "D3",
-    credits: "3",
-    type: "Lab",
-    days: "Thursday",
-    times: "1401 - 1600",
-    bldg: "ENG",
-    class: "computer Lab B",
-    dr: "Lara Malek Fawaz",
-    capacity: "10",
-    otherMajor: "Include:, Engineering",
-    major: "Include:, Computer Engineering",
-    courseType: "Major",
-  },
+  // {
+  //   campus: "Debbieh",
+  //   crn: "10475",
+  //   code: "COMP453",
+  //   name: "Transmission and Processing of Digital Signals",
+  //   letter: "D3",
+  //   credits: "3",
+  //   type: "Lab",
+  //   days: "Thursday",
+  //   times: "1401 - 1600",
+  //   bldg: "ENG",
+  //   class: "computer Lab B",
+  //   dr: "Lara Malek Fawaz",
+  //   capacity: "10",
+  //   otherMajor: "Include:, Engineering",
+  //   major: "Include:, Computer Engineering",
+  //   courseType: "Major",
+  // },
   {
     campus: "Debbieh",
     crn: "12083",
@@ -569,24 +620,24 @@ const availableCourses = [
     emptySpace4: " ",
     courseType: "Major",
   },
-  {
-    campus: "Debbieh",
-    crn: "12083",
-    code: "COMP554",
-    name: "IOT PLATFORM DESIGN AND IMPLEMENTATION",
-    letter: "D1",
-    credits: "3",
-    type: "Lab",
-    days: "Wednesday",
-    times: "1001 - 1200",
-    bldg: "ENG",
-    class: "computer Lab B",
-    dr: "TBA TBA",
-    capacity: "7",
-    otherMajor: " ",
-    major: "Include:, Computer Engineering",
-    courseType: "Major",
-  },
+  // {
+  //   campus: "Debbieh",
+  //   crn: "12083",
+  //   code: "COMP554",
+  //   name: "IOT PLATFORM DESIGN AND IMPLEMENTATION",
+  //   letter: "D1",
+  //   credits: "3",
+  //   type: "Lab",
+  //   days: "Wednesday",
+  //   times: "1001 - 1200",
+  //   bldg: "ENG",
+  //   class: "computer Lab B",
+  //   dr: "TBA TBA",
+  //   capacity: "7",
+  //   otherMajor: " ",
+  //   major: "Include:, Computer Engineering",
+  //   courseType: "Major",
+  // },
   {
     campus: "Beirut",
     crn: "12134",
@@ -895,24 +946,24 @@ const availableCourses = [
     emptySpace4: " ",
     courseType: "Major",
   },
-  {
-    campus: "Debbieh",
-    crn: "10494",
-    code: "COMP543L",
-    name: "CRYPTOGRAPHY AND INFORMATION SECURITY LAB",
-    letter: "D2",
-    credits: "1",
-    type: "Lab",
-    days: "Wednesday",
-    times: "0801 - 1000",
-    bldg: "ENG",
-    class: "computer lab D",
-    dr: "Ali Hassan Nassar",
-    capacity: "3",
-    otherMajor: " ",
-    major: "Include:, Computer Engineering",
-    courseType: "Major",
-  },
+  // {
+  //   campus: "Debbieh",
+  //   crn: "10494",
+  //   code: "COMP543L",
+  //   name: "CRYPTOGRAPHY AND INFORMATION SECURITY LAB",
+  //   letter: "D2",
+  //   credits: "1",
+  //   type: "Lab",
+  //   days: "Wednesday",
+  //   times: "0801 - 1000",
+  //   bldg: "ENG",
+  //   class: "computer lab D",
+  //   dr: "Ali Hassan Nassar",
+  //   capacity: "3",
+  //   otherMajor: " ",
+  //   major: "Include:, Computer Engineering",
+  //   courseType: "Major",
+  // },
   {
     campus: "Debbieh",
     crn: "10462",
@@ -1003,7 +1054,7 @@ const availableCourses = [
   },
 ];
 
-const takenCourses = [
+const takenCourses:takenCoursesType = [
   // {
   //   Term: "Spring 2022 / 2023",
   //   Course: "COMP452",
@@ -1591,7 +1642,7 @@ const takenCourses = [
   // },
 ];
 
-const allCourses = [
+const allCourses:allCoursesType = [
   {
     Course: "COMP499",
     Title: "Internship",
@@ -2007,7 +2058,7 @@ const allCourses = [
   },
 ];
 
-const preReqList = [
+const preReqList:preReqListType = [
   {
     Course: "MATH283",
     Prerequisite: ["MATH282", "MATH281"],
@@ -2130,7 +2181,7 @@ const preReqList = [
   },
 ];
 
-function remaincourses(availableCourses, takenCourses, allCourses, preReqList, totalCredits) {
+function remaincourses(availableCourses:availableCoursesType, takenCourses:takenCoursesType, allCourses:allCoursesType, preReqList:preReqListType, totalCredits:number) {
   const takenCourseCodes = takenCourses.map((course) => course.Course);
 
   const remainingCourses = allCourses
@@ -2197,7 +2248,7 @@ function remaincourses(availableCourses, takenCourses, allCourses, preReqList, t
   return remainingCourses;
 }
 
-function getTotalCreditsByCategory(takenCourses, allCourses) {
+function getTotalCreditsByCategory(takenCourses: takenCoursesType, allCourses: allCoursesType) {
   const ceCoreCourses = takenCourses
     .filter((course) =>
       allCourses.some(
@@ -2269,16 +2320,15 @@ function getTotalCreditsByCategory(takenCourses, allCourses) {
   };
 }
 
-function getCourseCredits(courseCode, allCourses) {
+function getCourseCredits(courseCode:string, allCourses:allCoursesType) {
   const course = allCourses.find((course) => course.Course === courseCode);
   return course ? course.Credits : 0;
 }
 
-function sumArray(arr) {
+function sumArray(arr:number[]) {
   return arr.reduce((total, value) => total + value, 0);
 }
 
-async function page() {
   // try {
   //     const res = await fetch("http://localhost:3000/api/courseOffering", {
   //       cache: "no-store",
@@ -2300,22 +2350,19 @@ async function page() {
   //   takenCourses,
   //   allCourses
   // );
-  const totalCreditsByCategory = getTotalCreditsByCategory(takenCourses, allCourses);
+  
+  const totalCreditsByCategory:totalCreditsByCategoryType = getTotalCreditsByCategory(takenCourses, allCourses);
   console.log("test.AllTakenCourses");
   console.log(totalCreditsByCategory.AllTakenCourses);
 
-  const remainingCourses = await remaincourses(
+  const remainingCourses = remaincourses(
     availableCourses,
     takenCourses,
     allCourses,
     preReqList,
-    totalCreditsByCategory
+    totalCreditsByCategory.AllTakenCourses
   );
 
   console.log("remainingCourses");
   console.log(remainingCourses);
 
-  return <div>REM C</div>;
-}
-
-export default page;
