@@ -1642,7 +1642,7 @@ const takenCourses:takenCoursesType = [
   // },
 ];
 
-const allCourses:allCoursesType = [
+export const allCourses:allCoursesType = [
   {
     Course: "COMP499",
     Title: "Internship",
@@ -2058,7 +2058,7 @@ const allCourses:allCoursesType = [
   },
 ];
 
-const preReqList:preReqListType = [
+export const preReqList:preReqListType = [
   {
     Course: "MATH283",
     Prerequisite: ["MATH282", "MATH281"],
@@ -2181,7 +2181,7 @@ const preReqList:preReqListType = [
   },
 ];
 
-function remaincourses(availableCourses:availableCoursesType, takenCourses:takenCoursesType, allCourses:allCoursesType, preReqList:preReqListType, totalCredits:number) {
+export function remaincourses(availableCourses:availableCoursesType, takenCourses:takenCoursesType, allCourses:allCoursesType, preReqList:preReqListType, totalCredits:number) {
   const takenCourseCodes = takenCourses.map((course) => course.Course);
 
   const remainingCourses = allCourses
@@ -2248,7 +2248,7 @@ function remaincourses(availableCourses:availableCoursesType, takenCourses:taken
   return remainingCourses;
 }
 
-function getTotalCreditsByCategory(takenCourses: takenCoursesType, allCourses: allCoursesType) {
+export function getTotalCreditsByCategory(takenCourses: takenCoursesType, allCourses: allCoursesType) {
   const ceCoreCourses = takenCourses
     .filter((course) =>
       allCourses.some(
@@ -2350,7 +2350,7 @@ function sumArray(arr:number[]) {
   //   takenCourses,
   //   allCourses
   // );
-  
+
   const totalCreditsByCategory:totalCreditsByCategoryType = getTotalCreditsByCategory(takenCourses, allCourses);
   console.log("test.AllTakenCourses");
   console.log(totalCreditsByCategory.AllTakenCourses);
@@ -2363,6 +2363,6 @@ function sumArray(arr:number[]) {
     totalCreditsByCategory.AllTakenCourses
   );
 
-  console.log("remainingCourses");
-  console.log(remainingCourses);
+  // console.log("remainingCourses");
+  // console.log(remainingCourses);
 
