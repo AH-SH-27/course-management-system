@@ -4,20 +4,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   username: string;
   password: string;
+  department: string;
 };
 
 function ScrapeForm() {
   const [inputs, setInputs] = useState<Inputs>({
     username: "",
     password: "",
+    department: "",
   });
 
+  const router = useRouter();
+
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -37,15 +42,10 @@ function ScrapeForm() {
       }
 
       const result = await res.json();
-      //console.log(result);
       const { data, message } = result;
 
       if (message === "Data retrieved successfully") {
-        // Handle success here
 
-        // console.log("Student Personal Data:", data.studentPersonalData);
-        // console.log("Student Courses Data:", data.studentCoursesData);
-        // Storing Data Locally
         localStorage.setItem("StudentData", JSON.stringify(data));
         toast({
           title: "Great",
@@ -55,8 +55,8 @@ function ScrapeForm() {
             </pre>
           ),
         });
+        router.push("/courseOffering");
       } else {
-        // Handle other cases or display an error message
         console.error("An error occurred:", message);
       }
     } catch (err) {
@@ -81,6 +81,16 @@ function ScrapeForm() {
             type="password"
             placeholder="Password"
           />
+           <select
+            name="department"
+            value={inputs.department}
+            onChange={handleChange}
+          >
+            <option value="">Select Department</option>
+            <option value="Computer Engineering">Computer Engineering</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+          </select>
           <Button type="submit">Submit</Button>
         </form>
       </div>

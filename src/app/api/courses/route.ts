@@ -87,14 +87,16 @@ const lunchScraping = async (body: reqBodyType) => {
         )?.textContent?.trim() || "";
 
       // Create an object to store the data
+      
       return {
         banID,
         fullName,
         bauEmail,
         personalEmail,
+        
       };
     });
-
+    
     //console.log(data);
 
     try {
@@ -148,9 +150,12 @@ const lunchScraping = async (body: reqBodyType) => {
     }));
 
 
-    let studentData = {
-      studentPersonalData: data, // Replace 'data' with the personal data
-      studentCoursesData: finalCourses, // Replace 'allTableData' with the course data
+     let studentData = {
+      studentPersonalData: {
+        ...data,
+        department: body.department, // Add the department from the request body
+      },
+      studentCoursesData: finalCourses,
     };
 
     await browser.close();
@@ -164,12 +169,13 @@ const lunchScraping = async (body: reqBodyType) => {
 type reqBodyType = {
   username: string;
   password: string;
+  department: string;
 };
 
 export const POST = async (req: NextRequest) => {
   try {
     const body: reqBodyType = await req.json();
-    // console.log(body);
+    console.log(body);
 
     const data = await lunchScraping(body);
     if (data != null) {

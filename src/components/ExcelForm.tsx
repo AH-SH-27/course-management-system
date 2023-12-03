@@ -5,12 +5,14 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { useState, useEffect } from "react";
 import XLSX from "xlsx";
+import { useRouter } from "next/navigation";
 
 type PersonalInfoType = {
   banID: string;
   bauEmail: string;
   fullName: string;
   personalEmail: string;
+  department: string;
 };
 
 function ExcelForm() {
@@ -22,6 +24,7 @@ function ExcelForm() {
     bauEmail: "",
     fullName: "",
     personalEmail: "",
+    department:"",
   });
   const studentDataFromExcel = {
     studentCoursesData: excelData,
@@ -29,9 +32,10 @@ function ExcelForm() {
   };
 
   console.log(studentDataFromExcel);
-
+  const router = useRouter();
+  
   const handlePersonalDataChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setPersonalInfo((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -79,6 +83,7 @@ function ExcelForm() {
       "StudentData",
       JSON.stringify(studentDataFromExcel)
     );
+    router.push("/courseOffering");
   };
 
   return (
@@ -117,6 +122,15 @@ function ExcelForm() {
             placeholder="File"
             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
           />
+           <select
+            name="department"
+            onChange={handlePersonalDataChange}
+          >
+            <option value="">Select Department</option>
+            <option value="Computer Engineering">Computer Engineering</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+          </select>
           <Button type="submit">Submit</Button>
         </form>
       </div>

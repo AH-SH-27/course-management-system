@@ -43,8 +43,8 @@ type studentDataType =
   | undefined;
 
 interface StoredData {
-  studentData: any; // Replace 'any' with the actual type of your student data
-  courseOfferingData: any; // Replace 'any' with the actual type of your course offering data
+  studentData: any;
+  courseOfferingData: any;
 }
 
 function page() {

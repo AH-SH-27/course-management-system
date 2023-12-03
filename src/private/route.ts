@@ -34,7 +34,7 @@ type scrapedCourses = {
   check: boolean;
 };
 
-const launchScraping = async (coursesData: courseOfferingPageDataType) => {
+const launchScraping = async () => {
   console.log("STARTING! ");
   try {
     const courseDataArray: courseDataType[] = [];
@@ -71,8 +71,7 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
           .click();
       }
 
-      async function getDataFromPage(courseType: string) {
-        let resultText: string[] = []
+      async function getDataFromPage(courseType: string, resultText: string[]) {
         let check = false;
         const targetElement = await page.$x(
           '//tr[.//*[contains(text(), "Debbieh")]]'
@@ -178,7 +177,7 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
 
         let result: scrapedCourses = await getDataFromPage(
           courseType,
-          
+          resultText
         );
 
         if (result.check == true) {
@@ -195,6 +194,7 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
 
             const result2: scrapedCourses = await getDataFromPage(
               courseType,
+              resultText
             );
             result2.courseDataArray.forEach((course) => {
               result.courseDataArray.push(course);
@@ -211,7 +211,6 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
           }
         }
 
-        if(coursesData.length > 1){
         await puppeteer.Locator.race([targetPage.locator(AttributeString)])
           .setTimeout(timeout)
           .click();
@@ -223,16 +222,69 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
           .click();
 
         await targetPage.waitForTimeout(3000);
-        }
+
         return result;
       }
-     
+      const courseOfferingPageData: courseOfferingPageDataType = [
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fifth Year - Core Courses)",
+        //   courseType: "Major",
+        // },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Core Courses)",
+        //   courseType: "Major",
+        // },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Third Year - Core Courses)",
+        //   courseType: "Major",
+        // },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Second Year - Core Courses)",
+        //   courseType: "Major",
+        // },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - First Year - Core Courses)",
+        //   courseType: "Major",
+        // },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: Computer Engineering - Fourth Year - Elective Courses)",
+        //   courseType: "Technical Elective",
+        // },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: Engineering)",
+        //   Attribute: "::-p-aria(ATTRIBUTE: General Engineering Core Courses)",
+        //   courseType: "GNR",
+        // },
+        {
+          Faculty: "::-p-aria(FACULTY: University Core Courses)",
+          Attribute:
+            "::-p-aria(ATTRIBUTE: University Core Courses)",
+          courseType: "GNR",
+        },
+        // {
+        //   Faculty: "::-p-aria(FACULTY: University Elective Courses)",
+        //   Attribute:
+        //     "::-p-aria(ATTRIBUTE: University Elective Courses)",
+        //   courseType: "General Elective",
+        // },
+      ];
+      let resultArray = [];
       let f;
-      console.log("coursesData.length: ")
-      console.log(coursesData.length)
-      if(coursesData.length > 1){
-      for (let i = 0; i < coursesData.length; ) {
-        const course = coursesData[i];
+      for (let i = 0; i < courseOfferingPageData.length; ) {
+        const course = courseOfferingPageData[i];
+
         console.log(course.Attribute);
         f = await processPage(
           page,
@@ -241,17 +293,15 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
           course.courseType
         );
         if (f.check == true) {
+          resultArray.push(f);
+          console.log("resultArray: ");
+          console.log(resultArray);
           i++;
         }
       }
-    }else{
-      await processPage(
-        page,
-        coursesData[0].Faculty,
-        coursesData[0].Attribute,
-        coursesData[0].courseType
-      );
-    }
+
+      //console.log("final: ", f?.courseDataArray);
+
       await browser.close();
     })().catch((err) => {
       console.error(err);
@@ -266,67 +316,6 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
   }
 };
 
-const setMajor = async (major: string) => {
-  const courseOfferingEngData: courseOfferingPageDataType = [
-    {
-      Faculty: "::-p-aria(FACULTY: Engineering)",
-      Attribute: `::-p-aria(ATTRIBUTE: ${major} - Fifth Year - Core Courses)`,
-      courseType: "Major",
-    },
-    {
-      Faculty: "::-p-aria(FACULTY: Engineering)",
-      Attribute: `::-p-aria(ATTRIBUTE: ${major} - Fourth Year - Core Courses)`,
-      courseType: "Major",
-    },
-    {
-      Faculty: "::-p-aria(FACULTY: Engineering)",
-      Attribute: `::-p-aria(ATTRIBUTE: ${major} - Third Year - Core Courses)`,
-      courseType: "Major",
-    },
-    {
-      Faculty: "::-p-aria(FACULTY: Engineering)",
-      Attribute: `::-p-aria(ATTRIBUTE: ${major} - Second Year - Core Courses)`,
-      courseType: "Major",
-    },
-    {
-      Faculty: "::-p-aria(FACULTY: Engineering)",
-      Attribute: `::-p-aria(ATTRIBUTE: ${major} - First Year - Core Courses)`,
-      courseType: "Major",
-    },
-    {
-      Faculty: "::-p-aria(FACULTY: Engineering)",
-      Attribute: `::-p-aria(ATTRIBUTE: ${major} - Fourth Year - Elective Courses)`,
-      courseType: "Technical Elective",
-    },
-  ];
-
-  return courseOfferingEngData;
-};
-
-const courseOfferingElectiveData: courseOfferingPageDataType = [
-  {
-    Faculty: "::-p-aria(FACULTY: University Elective Courses)",
-    Attribute:
-      "::-p-aria(ATTRIBUTE: University Elective Courses)",
-    courseType: "General Elective",
-  },
-]
-const courseOfferingGeneralEngData: courseOfferingPageDataType = [
-    {
-    Faculty: "::-p-aria(FACULTY: Engineering)",
-    Attribute: "::-p-aria(ATTRIBUTE: General Engineering Core Courses)",
-    courseType: "GNR",
-  },
-]
-const courseOfferingCoreData: courseOfferingPageDataType = [
-  {
-    Faculty: "::-p-aria(FACULTY: University Core Courses)",
-    Attribute:
-      "::-p-aria(ATTRIBUTE: University Core Courses)",
-    courseType: "GNR",
-  },
-]
-
 type courseOfferningBodyRequestType = {
   department: string;
 }
@@ -334,21 +323,13 @@ type courseOfferningBodyRequestType = {
 export const POST = async (req: NextRequest) => {
   try {
     const body: courseOfferningBodyRequestType = await req.json();
-    const setMajorFromRequest = await setMajor(body.department)
-    console.log(setMajorFromRequest)
-    console.log("body.department")
-    console.log(body.department)
-    const promises = [
-    launchScraping(setMajorFromRequest),
-    launchScraping(courseOfferingGeneralEngData),
-    launchScraping(courseOfferingElectiveData),
-    launchScraping(courseOfferingCoreData),
-    ]
-    const results = await Promise.all(promises);
-    const flattenedResults = results.flat();
- 
-      return new NextResponse(JSON.stringify(flattenedResults), { status: 201 });
-    
+
+    const res:  courseDataType[] = await launchScraping();
+    const res2: courseDataType[] = await launchScraping();
+    const res3: courseDataType[] = await launchScraping();
+    if (res) {
+      return new NextResponse(JSON.stringify(res), { status: 201 });
+    }
   } catch (err) {
     return new NextResponse(
       JSON.stringify({
