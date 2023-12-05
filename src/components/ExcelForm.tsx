@@ -58,9 +58,14 @@ function ExcelForm() {
           const workbook = XLSX.read(data, { type: "array" });
           const sheetName = workbook.SheetNames[0];
           const sheet = workbook.Sheets[sheetName];
-          const jsonData = XLSX.utils.sheet_to_json(sheet);
-          console.log("Excel data:", jsonData);
-          setExcelData(jsonData);
+          const jsonData: { Term: string }[] = XLSX.utils.sheet_to_json(sheet);
+
+          // Filter out courses with the specified term
+          const filteredData = jsonData.filter(
+            (item) => !item.Term.includes("Lebanese baccalaureate or Eqv.")
+          );
+          console.log("Excel data:", filteredData);
+          setExcelData(filteredData);
         }
       };
 

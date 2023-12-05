@@ -52,14 +52,17 @@ type totalCreditsByCategoryType = {
 export const POST = async (req: NextRequest) => {
   try {
     const body:remainingCoursesBodyType = await req.json();
+    //console.log(body);
 
-    // console.log(body);
+     const totalCreditsByCategories:totalCreditsByCategoryType =  await getTotalCreditsByCategory(body.takenCourses, allCourses);
 
-    const totalCreditsByCategory:totalCreditsByCategoryType = getTotalCreditsByCategory(body.takenCourses, allCourses);
+    const results = await remaincourses(body.availableCourses, body.takenCourses,allCourses,preReqList,totalCreditsByCategories.AllTakenCourses);
+    console.log("results")
+    console.log(results)
 
-    const results = remaincourses(body.availableCourses, body.takenCourses,allCourses,preReqList,totalCreditsByCategory.AllTakenCourses);
-
-    return new NextResponse(JSON.stringify(results), { status: 201 });
+    // console.log("totalCreditsByCategory")
+    // console.log(totalCreditsByCategory)
+    return new NextResponse(JSON.stringify({results}), { status: 201 });
     
   } catch (err) {
     return new NextResponse(

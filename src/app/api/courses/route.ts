@@ -139,7 +139,9 @@ const lunchScraping = async (body: reqBodyType) => {
 
     // Print all the extracted data
 
-    const finalCourses = allTableData.map((item) => ({
+    const finalCourses = allTableData
+    .filter((item) => !item[0].includes("Lebanese baccalaureate or Eqv."))
+    .map((item) => ({
       Term: item[0],
       Course: item[1],
       Title: item[2],
@@ -148,6 +150,7 @@ const lunchScraping = async (body: reqBodyType) => {
       Grade: item[5],
       SGPA: parseFloat(item[6]),
     }));
+  
 
 
      let studentData = {

@@ -42,7 +42,7 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
 
     await (async () => {
       const browser = await puppeteer.launch({
-        headless: false,
+        headless: "new",
         timeout: 80000,
       });
       const page = await browser.newPage();
@@ -347,7 +347,13 @@ export const POST = async (req: NextRequest) => {
     const results = await Promise.all(promises);
     const flattenedResults = results.flat();
  
-      return new NextResponse(JSON.stringify(flattenedResults), { status: 201 });
+     const modifiedResults = flattenedResults.map(courseData => {
+      const { emptySpace1, emptySpace2, emptySpace3, emptySpace4, ...modifiedCourseData } = courseData;
+      return modifiedCourseData;
+    });
+    console.log(modifiedResults)
+
+      return new NextResponse(JSON.stringify(modifiedResults), { status: 201 });
     
   } catch (err) {
     return new NextResponse(
