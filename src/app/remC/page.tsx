@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import { useEffect } from "react";
+import { courseDataType, studentCoursesDataType } from "../types/types";
+
 type remainingCoursesResponseType =
   | {
       campus: string;
@@ -29,29 +31,21 @@ type studentDataType = {
     personalEmail: string;
   };
   studentCoursesData: {
-    Term: string;
     Course: string;
-    Title: string;
     Credits: number;
-    Level: string;
     Grade: string;
-    SGPA: number;
+    Level: string;
+    SGPA: number | null;
+    Term: string;
+    Title: string;
   }[];
 };
 
-type studentCoursesDataType = {
-  Term: string;
-  Course: string;
-  Title: string;
-  Credits: number;
-  Level: string;
-  Grade: string;
-  SGPA: number;
-}[];
+
 
 interface StoredData {
   studentData: studentCoursesDataType;
-  courseOfferingData: remainingCoursesResponseType;
+  courseOfferingData: courseDataType[];
 }
 const getRemainingCourses = async (data: StoredData) => {
   try {
@@ -80,15 +74,15 @@ function page() {
         localStorage.getItem("CourseOfferingData");
 
       if (storedStudentData != null && storedCourseOfferingData != null) {
-        const parsedStudentData = JSON.parse(storedStudentData);
-        const parsedCourseOfferingData = JSON.parse(storedCourseOfferingData);
+        const parsedStudentData: studentDataType = JSON.parse(storedStudentData);
+        const parsedCourseOfferingData: courseDataType[] = JSON.parse(storedCourseOfferingData);
         const data: StoredData = {
           studentData: parsedStudentData.studentCoursesData,
           courseOfferingData: parsedCourseOfferingData,
         };
 
-        // console.log("data.studentData");
-        // console.log(data.studentData);
+        console.log("data.studentData");
+        console.log(data.studentData);
         // console.log("data.courseOfferingData");
         // console.log(data.courseOfferingData);
 

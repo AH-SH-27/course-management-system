@@ -201,8 +201,6 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
             });
 
             result.check = result2.check;
-            // console.log("result ");
-            // console.log(result);
             await page.click(
               "a.dxp-num[onclick=\"ASPx.GVPagerOnClick('GVCourseOffering','PN0');\"]"
             );
@@ -228,8 +226,6 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
       }
      
       let f;
-      console.log("coursesData.length: ")
-      console.log(coursesData.length)
       if(coursesData.length > 1){
       for (let i = 0; i < coursesData.length; ) {
         const course = coursesData[i];
@@ -257,8 +253,7 @@ const launchScraping = async (coursesData: courseOfferingPageDataType) => {
       console.error(err);
       throw err;
     });
-    console.log("courseDataArray");
-    console.log(courseDataArray);
+
     return courseDataArray;
   } catch (err) {
     console.log("ERROR: " + err);
@@ -335,9 +330,6 @@ export const POST = async (req: NextRequest) => {
   try {
     const body: courseOfferningBodyRequestType = await req.json();
     const setMajorFromRequest = await setMajor(body.department)
-    console.log(setMajorFromRequest)
-    console.log("body.department")
-    console.log(body.department)
     const promises = [
     launchScraping(setMajorFromRequest),
     launchScraping(courseOfferingGeneralEngData),
@@ -351,7 +343,7 @@ export const POST = async (req: NextRequest) => {
       const { emptySpace1, emptySpace2, emptySpace3, emptySpace4, ...modifiedCourseData } = courseData;
       return modifiedCourseData;
     });
-    console.log(modifiedResults)
+    
 
       return new NextResponse(JSON.stringify(modifiedResults), { status: 201 });
     

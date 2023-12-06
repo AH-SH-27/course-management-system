@@ -25,6 +25,7 @@ const getCourseOfferingData = async (department: string) => {
   }
 };
 
+
 function page() {
   const router = useRouter();
   useEffect(() => {
@@ -58,25 +59,6 @@ function page() {
       }
     }
   }, []);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const courseOfferingData = await getCourseOfferingData();
-
-  //       if (courseOfferingData !== "Something went wrong!") {
-  //         localStorage.setItem("CourseOfferingData", JSON.stringify(courseOfferingData));
-  //         console.log("Successfully Got Course Offering");
-  //         //router.push("/remC");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching course offering data:", error);
-
-  //     }
-  //   };
-
-  //   fetchData();
-
-  // }, []);
 
   return (
     <div>
