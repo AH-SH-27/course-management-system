@@ -80,7 +80,7 @@ function ExcelForm() {
       title: "Great",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">AAA</code>
+          <code className="text-white">Your data was retrieved successfully &#x1F601;</code>
         </pre>
       ),
     });
@@ -95,12 +95,13 @@ function ExcelForm() {
     <>
       <div className="flex items-center justify-center h-screen">
         <form onSubmit={handleSubmit} className="w-2/3 space-y-6">
-          <label>Upload Excel</label>
+          <label className="ml-[150px] text-3xl font-bold">Upload Excel</label>
           <Input
             name="banID"
             onChange={handlePersonalDataChange}
             type="text"
             placeholder="Id"
+            className=""
           />
           <Input
             name="bauEmail"
@@ -120,6 +121,21 @@ function ExcelForm() {
             type="text"
             placeholder="Personal email"
           />
+          <select
+            name="department"
+            className="p-2 h-10 w-full bg-[#f9f9f9] rounded-sm placeholder:text-muted-foreground"
+            onChange={handlePersonalDataChange}
+          >
+            <option className="flex p-3 m-2 " value="">Select Department</option>
+            <option className="flex p-3 m-2 " value="Computer Engineering">Computer Engineering</option>
+            <option className="flex p-3 m-2 " value="Civil Engineering">Civil Engineering</option>
+            <option className="flex p-3 m-2 " value="Mechanical Engineering">Mechanical Engineering</option>
+            <option className="flex p-3 m-2 " value="Mechanical Engineering">Electric Power & Machines</option>
+            <option className="flex p-3 m-2 " value="Mechanical Engineering">Chemical Engineering</option>
+            <option className="flex p-3 m-2 " value="Mechanical Engineering">Biomedical Engineering</option>
+            <option className="flex p-3 m-2 " value="Mechanical Engineering">Communication & Electronics</option>
+            <option className="flex p-3 m-2 " value="Mechanical Engineering">Industrial Engineering</option>
+          </select>
           <Input
             name="excelFile"
             onChange={handleChangeFile}
@@ -127,16 +143,8 @@ function ExcelForm() {
             placeholder="File"
             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
           />
-           <select
-            name="department"
-            onChange={handlePersonalDataChange}
-          >
-            <option value="">Select Department</option>
-            <option value="Computer Engineering">Computer Engineering</option>
-            <option value="Civil Engineering">Civil Engineering</option>
-            <option value="Mechanical Engineering">Mechanical Engineering</option>
-          </select>
-          <Button type="submit">Submit</Button>
+           
+          <Button className="w-full" type="submit">Submit</Button>
         </form>
       </div>
     </>

@@ -1,8 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { SpinnerDotted } from 'spinners-react';
 
 const getCourseOfferingData = async (department: string) => {
   try {
@@ -27,6 +28,9 @@ const getCourseOfferingData = async (department: string) => {
 
 
 function page() {
+  
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -38,17 +42,18 @@ function page() {
           parsedStudentData.studentPersonalData.department
         ) {
           const department = parsedStudentData.studentPersonalData.department;
-          console.log("Department:", department);
+          
               const fetchData = async () => {
       try {
+        setLoading(true);
         const courseOfferingData = await getCourseOfferingData(department);
 
         if (courseOfferingData !== "Something went wrong!") {
           localStorage.setItem("CourseOfferingData", JSON.stringify(courseOfferingData));
-          console.log("Successfully Got Course Offering");
-          //router.push("/remC");
+          router.push("/remain_courses");
         }
       } catch (error) {
+        setLoading(false)
         console.error("Error fetching course offering data:", error);
 
       }
@@ -61,9 +66,17 @@ function page() {
   }, []);
 
   return (
-    <div>
-      <h1>COURSE OFFERING</h1>
-      <Button>CLICK HERE</Button>
+    <div className="flex flex-col justify-center items-center h-screen">
+      <h1 className="text-3xl font-bold mb-4">Please wait while we load your course offering</h1>
+      <h2 className="text-xl mb-8">When finished, you will be directed automatically</h2>
+      <h2 className="text-md mb-8">It may take a while</h2>
+      <div>
+        {loading ? (
+          <SpinnerDotted size={120} color="#131a33" />
+        ) : (
+          <h1 className="text-2xl text-red-500">Something went wrong. Please close the page &#x1F613;</h1>
+        )}
+      </div>
     </div>
   );
 }

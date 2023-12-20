@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-// import { remaincourses, allCourses, preReqList, getTotalCreditsByCategory }  from "@/app/utils/remainCourses";
 import { courseDataType, studentCoursesDataType } from "@/app/types/types"; 
-// ------------------------------------------------------------------------------------------------
 
 const allCourses:allCoursesType = [
   {
@@ -60,13 +58,6 @@ const allCourses:allCoursesType = [
     Level: "UG",
     Type: "CE Core",
   },
-  // {
-  //   Course: "COMP512",
-  //   Title: "web programming",
-  //   Credits: 3,
-  //   Level: "UG",
-  //   Type: "CE Core",
-  // },
   {
     Course: "COMP543",
     Title: "cryptography & info. security",
@@ -74,13 +65,6 @@ const allCourses:allCoursesType = [
     Level: "UG",
     Type: "CE Core",
   },
-  // {
-  //   Course: "COMP560",
-  //   Title: "Deep Learning",
-  //   Credits: 3,
-  //   Level: "UG",
-  //   Type: "CE Core",
-  // },
   {
     Course: "COMP543L",
     Title: "crypto. & info. security lab",
@@ -88,13 +72,6 @@ const allCourses:allCoursesType = [
     Level: "UG",
     Type: "CE Core",
   },
-  // {
-  //   Course: "COMP474",
-  //   Title: "Introduction to Robotics",
-  //   Credits: 3,
-  //   Level: "UG",
-  //   Type: "CE Core",
-  // },
   {
     Course: "COMP454",
     Title: "computer networks",
@@ -137,13 +114,6 @@ const allCourses:allCoursesType = [
     Level: "UG",
     Type: "CE Core",
   },
-  // {
-  //   Course: "COMP477",
-  //   Title: "emerging trends in comp eng",
-  //   Credits: 3,
-  //   Level: "UG",
-  //   Type: "CE Core",
-  // },
   {
     Course: "COMP423",
     Title: "computer architecture",
@@ -170,7 +140,7 @@ const allCourses:allCoursesType = [
     Title: "digital electronics",
     Credits: 3,
     Level: "UG",
-    Type: "CE Core",
+    Type: "GNR",
   },
   {
     Course: "COMP232",
@@ -226,7 +196,7 @@ const allCourses:allCoursesType = [
     Title: "Programming I",
     Credits: 3,
     Level: "UG",
-    Type: "CE Core",
+    Type: "GNR",
   },
   {
     Course: "COMP225",
@@ -235,34 +205,6 @@ const allCourses:allCoursesType = [
     Level: "UG",
     Type: "CE Core",
   },
-  // {
-  //   Course: "WRNL200",
-  //   Title: "Work Ready Now",
-  //   Credits: 3,
-  //   Level: "UG",
-  //   Type: "General Elective",
-  // },
-  // {
-  //   Course: "ENVI004",
-  //   Title: "Envi. Issues in Lebanon",
-  //   Credits: 2,
-  //   Level: "UG",
-  //   Type: "General Elective",
-  // },
-  // {
-  //   Course: "CVLE007",
-  //   Title: "Traffic Safety",
-  //   Credits: 1,
-  //   Level: "UG",
-  //   Type: "General Elective",
-  // },
-  // {
-  //   Course: "CMPS005",
-  //   Title: "BULDING BASIC ANDROID APPS",
-  //   Credits: 2,
-  //   Level: "UG",
-  //   Type: "General Elective",
-  // },
   {
     Course: "BLAW001",
     Title: "Human Rights",
@@ -542,76 +484,35 @@ const preReqList:preReqListType = [
   },
 ];
 
-
-
-function remaincourses(availableCourses:courseDataType[], takenCourses:studentCoursesDataType, allCourses:allCoursesType, preReqList:preReqListType, totalCredits:number) {
+function remainCourses(availableCourses: CourseResult[], takenCourses: studentCoursesDataType, allCourses: allCoursesType, preReqList: preReqListType, totalCredits: number) {
   const takenCourseCodes = takenCourses.map((course) => course.Course);
+  const uniqueCourses: { [key: string]: CourseResult } = {};
 
-  const remainingCourses = allCourses
-    .filter((course) => {
-      if (!takenCourseCodes.includes(course.Course)) {
-        const prerequisites = preReqList.find(
-          (prereq) => prereq.Course === course.Course
-        );
+  availableCourses.forEach((course) => {
+    if (!takenCourseCodes.includes(course.code)) {
+      const prerequisites = preReqList.find((prereq) => prereq.Course === course.code);
 
-        if (prerequisites) {
-          if (
-            prerequisites.Prerequisite.every((prereqCode) =>
-              takenCourseCodes.includes(prereqCode)
-            )
-          ) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          // Check additional conditions for specific courses
-          if (
-            (course.Course === "COMP499" && totalCredits > 80) ||
-            (course.Course === "COMP501" && totalCredits > 110)
-          ) {
-            return true;
-          } else {
-            return false;
-          }
+      if (
+        (prerequisites && prerequisites.Prerequisite.every((prereqCode) => takenCourseCodes.includes(prereqCode))) ||
+        ((course.code === "COMP499" && totalCredits > 80) || (course.code === "COMP501" && totalCredits > 110))
+      ) {
+        const uniqueKey = `${course.code}-${course.crn}-${course.times}-${course.type}-${course.days}`;
+
+        if (!uniqueCourses[uniqueKey]) {
+          uniqueCourses[uniqueKey] = course;
         }
       }
-      return false;
-    })
-    .flatMap((course) => {
-      const matchingAvailableCourses = availableCourses.filter(
-        (availableCourse) => availableCourse.code === course.Course
-      );
+    }
+  });
 
-      if (matchingAvailableCourses.length > 0) {
-        return matchingAvailableCourses.map((matchingAvailableCourse) => ({
-          campus: matchingAvailableCourse.campus,
-          crn: matchingAvailableCourse.crn,
-          code: matchingAvailableCourse.code,
-          name: matchingAvailableCourse.name,
-          letter: matchingAvailableCourse.letter,
-          credits: matchingAvailableCourse.credits,
-          type: matchingAvailableCourse.type,
-          days: matchingAvailableCourse.days,
-          times: matchingAvailableCourse.times,
-          bldg: matchingAvailableCourse.bldg,
-          class: matchingAvailableCourse.class,
-          dr: matchingAvailableCourse.dr,
-          capacity: matchingAvailableCourse.capacity,
-          otherMajor: matchingAvailableCourse.otherMajor,
-          major: matchingAvailableCourse.major,
-          courseType: matchingAvailableCourse.courseType,
-        }));
-      }
-
-      return null;
-    })
-    .filter((course) => course !== null);
+  const remainingCourses = Object.values(uniqueCourses);
 
   return remainingCourses;
 }
 
 function getTotalCreditsByCategory(takenCourses: studentCoursesDataType, allCourses: allCoursesType) {
+  console.log("takenCourses---------");
+  console.log(takenCourses);
   const ceCoreCourses = takenCourses
     .filter((course) =>
       allCourses.some(
@@ -708,10 +609,6 @@ type availableCoursesType = {
   capacity: string;
   otherMajor: string;
   major: string;
-  emptySpace1: string;
-  emptySpace2: string;
-  emptySpace3: string;
-  emptySpace4: string;
   courseType: string;
 }[]
 
@@ -747,68 +644,10 @@ GNR: number;
 AllTakenCourses: number;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//--------------------------------------------------------------------------------------------------
-
-// type availableCoursesType = {
-//     campus: string;
-//     crn: string;
-//     code: string;
-//     name: string;
-//     letter: string;
-//     credits: string;
-//     type: string;
-//     days: string;
-//     times: string;
-//     bldg: string;
-//     class: string;
-//     dr: string;
-//     capacity: string;
-//     otherMajor: string;
-//     major: string;
-//     emptySpace1: string;
-//     emptySpace2: string;
-//     emptySpace3: string;
-//     emptySpace4: string;
-//     courseType: string;
-// }[]
-
-// type takenCoursesType = {
-//   Term: string;
-//   Course: string;
-//   Title: string;
-//   Credits: number;
-//   Level: string;
-//   Grade: string;
-//   SGPA: number;
-// }[]
-
 type remainingCoursesBodyType = {
     availableCourses: availableCoursesType;
    takenCourses:  takenCoursesType;
 }
-
-// type totalCreditsByCategoryType = {
-//     CECore: number;
-//     TechnicalElective: number;
-//     GeneralElective: number;
-//     GNR: number;
-//     AllTakenCourses: number;
-//   }
 
 type StudentCoursesType = {
   Course: string;
@@ -845,20 +684,32 @@ studentData: studentCoursesDataType,
 courseOfferingData: courseDataType[],
 }
 
+type CourseResult = {
+  campus: string;
+  crn: string;
+  code: string;
+  name: string;
+  letter: string;
+  credits: string;
+  type: string;
+  days: string;
+  times: string;
+  bldg: string;
+  class: string;
+  dr: string;
+  capacity: string;
+  otherMajor: string;
+  major: string;
+  courseType: string;
+};
+
 export const POST = async (req: NextRequest) => {
   try {
     const body:requestBodyType = await req.json();
-    console.log(body.studentData);
     const takenCourse = body.studentData
-     const totalCreditsByCategories:totalCreditsByCategoryType =  getTotalCreditsByCategory(body.studentData, allCourses);
-
-    const results = remaincourses(body.courseOfferingData, body.studentData,allCourses,preReqList,totalCreditsByCategories.AllTakenCourses);
-    console.log("results")
-    console.log(results)
-
-    console.log("totalCreditsByCategory")
-    console.log(totalCreditsByCategories)
-    return new NextResponse(JSON.stringify({results}), { status: 201 });
+    const totalCreditsByCategories:totalCreditsByCategoryType =  getTotalCreditsByCategory(body.studentData, allCourses);
+    const results = remainCourses(body.courseOfferingData, body.studentData,allCourses,preReqList,totalCreditsByCategories.AllTakenCourses);
+    return new NextResponse(JSON.stringify({results,totalCreditsByCategories}), { status: 201 });
     
   } catch (err) {
     return new NextResponse(
