@@ -1,3 +1,98 @@
+Year1 = [
+    Fall: [
+        MATH281,
+        MATH282,
+        PHYS281,
+        ENGR002,
+        MCHE213,
+        ARAB001,
+    ],
+    Spring: [
+        MATH283,
+        POWE212,
+        PHYS282,
+        COMP225,
+        ENGL001,
+        COMP208,
+    ],
+    Summer: [
+        BLAW001,
+        General Elective,
+        CHEM241,
+        ENGL221,
+    ]
+]
+Year2 = [
+    Fall: [
+        COME223,
+        COMP231,
+        COMP226,
+        ENGL300,
+        COMP215,
+        COMP210,
+    ],
+    Spring: [
+        MATH284,
+        COMP232,
+        MATH381,
+        COMP325,
+        INME221,
+        COMP311,
+    ],
+    Summer: [
+        MGMT002,
+        CHEM405,
+        ENGR001,
+        General Elective,
+    ]
+]
+Year3 = [
+    Fall: [
+        COMP361,
+        COME411,
+        COMP337,
+        COMP453,
+        Technical Elective,
+        COMP423,
+    ],
+    Spring: [
+        COMP334,
+        COMP454L,
+        COMP454,
+        COMP428,
+        General Elective,
+        COMP364,
+        COMP442,
+    ],
+    Summer: [
+    ]
+]
+Year4 = [
+    Fall: [
+        COMP543,
+        COMP543L,
+        Technical Elective,
+        Technical Elective,
+        COMP501,
+        COMP500,
+        COMP499,
+    ],
+    Spring: [
+        Technical Elective,
+        COMP443,
+        COMP525,
+        COMP502,
+        COMP452,
+    ],
+    Summer: [
+    ]
+]
+
+
+
+
+
+
 let courses: Course[] = [
     {
         "campus": "Beirut",

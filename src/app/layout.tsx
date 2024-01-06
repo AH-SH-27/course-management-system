@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import QueryProvider from "@/components/QueryProvider";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import Chatbot from "@/components/Chatbot";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +21,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <QueryProvider>{children}</QueryProvider>
         <Toaster />
-        <Chatbot/>
       </body>
     </html>
   );

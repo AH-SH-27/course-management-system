@@ -136,6 +136,14 @@ function page() {
     setSchedule(schedule);
   }, []);
 
+  const clearLocalStorage = () => {
+    localStorage.removeItem("StudentData");
+    localStorage.removeItem("CourseOfferingData");
+    localStorage.removeItem("StudentCoursesCheckedCourses");
+    localStorage.removeItem("RemainingCourses&Credits");
+    localStorage.removeItem("RemainingCourses&Credits");
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -157,9 +165,11 @@ function page() {
   };
 
   if (loading) {
-    return <div className="flex flex-col justify-center items-center h-screen w-full">
-    <SpinnerDotted size={120} color="#131a33" />
-  </div>;
+    return (
+      <div className="flex flex-col justify-center items-center h-screen w-full">
+        <SpinnerDotted size={120} color="#131a33" />
+      </div>
+    );
   }
 
   // Render error state
@@ -184,13 +194,13 @@ function page() {
                 <span className="text-sm text-gray-700">
                   Campus: {course.campus}
                 </span>
-                <br/>
+                <br />
                 <span className="text-sm text-gray-700">CRN: {course.crn}</span>
                 <br />
                 <span className="text-sm text-gray-700">
                   Doctor: {course.dr}
                 </span>
-                <br />     
+                <br />
               </li>
             ))}
           </ul>
@@ -202,6 +212,15 @@ function page() {
             style={{ width: "120px" }}
           >
             Submit
+          </Button>
+        </form>
+        <form className="flex flex-row-reverse" onSubmit={clearLocalStorage}>
+          <Button
+            type="submit"
+            className="px-4 py-2"
+            style={{ width: "120px" }}
+          >
+            Clear Data
           </Button>
         </form>
       </div>
