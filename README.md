@@ -1,40 +1,85 @@
-This project was solo implemented by Ahmad Shaaban.
+# 🎓 Courses Management System (FYP Project)
 
-This is my FYP. It is designed to help students manage their courses in the best way possible.
+This is my **Final Year Project (FYP)**, a system designed to help students efficiently manage their courses and generate an optimized schedule based on their taken, available, and prerequisite courses.
 
-How It Works:
-1) It retrieves courses using Excel or scraping.
-2) It fetches the courses available in the course offering.
-3) It compares results and provides the remaining courses for the student (comparison is done with taken, available, prerequisite courses, and with some conditions for certain courses depending on the number of finished credits).
-4) It generates a schedule of courses to take.
-5) At each step, the data is saved in local storage.
+---
 
-Future Improvements/Work:
-1) The course offering API needs more checking on when it should work and stop. When the API is called, it will still run even if the student exits the     page, which can be an advantage and a disadvantage at the same time.
-2) Maybe create a way to call some function and save data on the server for faster results.
-3) Implement a profile system so students can save their data, and teachers can monitor it.
-4) Implement a chatbot responsive with the data we have and maybe can interact with it.
-5) Improve some validations and checking.
-6) Finish the plan.
-7) Q/A system can be implemented to help students and teachers.
-8) Implement the code with the improvements to create the schedule.
-9) Clean up the codes.
+## 🚀 Features & Functionality
 
-What We Have:
-1) Database design on Eraser.
-2) Library for a plan with some codes for it. Either use the elk or use manual implementation using positions x and y.
-3) Code and improvement ideas for the schedule available.
+* **Course Data Input**: Retrieve courses via **Excel upload** or **web scraping**.
+* **Course Comparison**: Compares student data with available courses, prerequisites, and course conditions (based on completed credits).
+* **Schedule Generation**: Generates a suggested course schedule based on priority rules.
+* **Local Storage**: Saves progress and intermediate data locally for continuity.
+* **Priority Rules**: Courses are prioritized based on:
 
-Code for Schedule:
-1) Get remaining courses.
-2) Compare them and put them in a list where the most important are at the top.
-3) Priority for the top depends on the number of Chosen, Major, Common, or prerequisite courses, Least Options (CRNs), Least Days.
+  * Required major courses
+  * Common/core courses
+  * Prerequisites
+  * Courses with least options (CRNs)
+  * Days availability
 
-Last Update:
-29 Dec. 2023
+---
 
-For any questions, don't hesitate to ask.
-If you are trying to do something GOOD LUCK you will need it a lot XD. 
+## ⚙ Tech Stack
 
-Contact:
-Gmail: shaabanahmad02@gmail.com
+| Technology    | Purpose                          |
+| ------------- | -------------------------------- |
+| Next.js 14    | Frontend framework               |
+| React 18      | UI components                    |
+| TypeScript 5  | Type safety and maintainability  |
+| Tailwind CSS  | Styling and responsive design    |
+| Framer Motion | Animations                       |
+| React Flow    | Visualization of course plans    |
+| Puppeteer     | Web scraping of course offerings |
+| Node-xlsx     | Excel file parsing               |
+| Radix UI      | Accessible UI components         |
+| LocalStorage  | Data persistence                 |
+
+---
+
+## 🛠 How It Works
+
+1. **Retrieve Courses** – Input courses via Excel or scraping.
+2. **Fetch Course Offerings** – Get the list of courses available.
+3. **Compare Courses** – Determine remaining courses based on:
+
+   * Taken courses
+   * Available courses
+   * Prerequisites
+   * Course-specific conditions
+4. **Generate Schedule** – Suggests a schedule with prioritized courses.
+5. **Data Saving** – Progress saved in **localStorage** at each step.
+
+---
+
+## 💡 Future Improvements / Work
+
+* Refine the **course offering API** for better control and performance.
+* Implement **server-side saving** for faster results and persistence.
+* Add **student profiles** for saving data and teacher monitoring.
+* Integrate a **chatbot** for responsive guidance.
+* Improve **validations** and **data checking**.
+* Finish and clean up the **schedule generation code**.
+* Implement a **Q/A system** to assist students and teachers.
+
+---
+
+## 📦 Current Project Components
+
+* Database design (via ER diagrams)
+* Plan generation library with code implementation (using **ELK** or manual positioning)
+* Schedule generation logic with course prioritization
+
+---
+
+## 🗓 Last Update
+
+* **29 Dec. 2023**
+
+---
+
+## 📫 Contact
+
+* **Email**: [shaabanahmad02@gmail.com](mailto:shaabanahmad02@gmail.com)
+
+> For any questions or collaborations, feel free to reach out.
